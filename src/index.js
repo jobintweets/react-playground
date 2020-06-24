@@ -3,46 +3,55 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-function ActionLink() {
-  function handleClick(e) {
-    e.preventDefault();
-    console.log('The link was clicked.');
-  }
-return (
-    <a href="https://codepen.io/gaearon/pen/vXdGmd?editors=0010" onClick={handleClick}>
-      Click me
-    </a>
+function LoginButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Login
+    </button>
   );
 }
 
-class Toggle extends React.Component {
+function LogoutButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Logout
+    </button>
+  );
+}
+class LoginControl extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isToggleOn: true
-    };
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = {isLoggedIn: false};
   }
-  handleClick() {
-    this.setState(state => ({ isToggleOn: !state.isToggleOn}));
+  handleLoginClick() {
+    this.setState({isLoggedIn: true});
   }
-render () {
-  return (
-    <button onClick={this.handleClick}>
-    {this.state.isToggleOn ? 'ON' : 'OFF'}
-  </button>
-);
+
+  handleLogoutClick() {
+    this.setState({isLoggedIn: false});
+  }
+
+  render () {
+    const isLoggedIn = this.state.isLoggedIn;
+    let button;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
+    return (
+      <div>
+      <h1>Welcome to my application</h1>
+       {button}
+      </div>
+    );
+  }
 }
-}
- 
-  
+
 ReactDOM.render(
-<Toggle/>,
+  <LoginControl />,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register();
