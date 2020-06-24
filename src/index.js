@@ -44,11 +44,41 @@ const comment = {
   }
 };
 
+class  Clock extends React.Component  {
+  constructor(props) {
+super(props);
+this.state = {
+  date:new Date()
+}
+  }
+  //life cycle method
+  /***
+   * The componentDidMount() method runs after 
+   * the component output has been rendered to the DOM. 
+   */
+  componentDidMount() {
+    setInterval( () => this.tick(), 1000 );
+  }
+// life cycle method
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+tick() {
+  this.setState({ date: new Date()});
+}
+  render () {
+    return (
+      <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+    </div>
+    );
+  }
+  }
+
 ReactDOM.render(
-<Comment date={comment.date} 
-text={comment.text} 
-author={comment.author}
- />,
+<Clock/>,
   document.getElementById('root')
 );
 
