@@ -15,8 +15,37 @@ function NumberList(props) {
   );
 }
 
+function Blog (props) {
+  const sidebar = (
+<ul>
+  {props.posts.map((post)=>
+    <li key={post.id}>
+    {post.title}
+    </li>
+  )}
+</ul>
+  );
+  const content = props.posts.map((post)=>
+    <div>
+      <h2>{post.title}</h2>
+      <p>{post.content}</p>
+    </div>
+  );
+  return (
+  <div>
+      {sidebar}
+      <hr />
+      {content}
+    </div>
+    );
+}
+const posts = [
+  {id: 1, title: 'Hello World', content: 'Welcome to learning React!'},
+  {id: 2, title: 'Installation', content: 'You can install React from npm.'}
+];
 ReactDOM.render(
-  <NumberList numbers= {numbers}/>,
+  // <NumberList numbers= {numbers}/>,
+  <Blog posts={posts} />,
   document.getElementById('root')
 );
 serviceWorker.register();
