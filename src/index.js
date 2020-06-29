@@ -41,23 +41,55 @@ function SplitPane(props) {
     </div>
   );
 }
-function WelcomeDialog() {
+function WelcomeDialog(props) {
   return (
     <FancyBorder color="blue">
       <h1 className="Dialog-title">
-        Welcome
+        {props.title}
       </h1>
       <p className="Dialog-message">
-        Thank you for visiting our spacecraft!
+      {props.message}
       </p>
-      
-    </FancyBorder>
+      {props.children}
+       </FancyBorder>
   );
 }
+
+class SignUpDialog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
+    this.state = {login: ''};
+  }
+render() {
+    return (
+      <WelcomeDialog title="Mars Exploration Program"
+              message="How should we refer to you?">
+        <input value={this.state.login}
+               onChange={this.handleChange} />
+        <button onClick={this.handleSignUp}>
+          Sign Me Up!
+        </button>
+      </WelcomeDialog>
+    );
+  }
+
+  handleChange(e) {
+    this.setState({login: e.target.value});
+  }
+
+  handleSignUp() {
+    alert(`Welcome aboard, ${this.state.login}!`);
+  }
+}
 ReactDOM.render(
-  <SplitPane
-    left={ <Contacts />}
-    right = {<Chat/>}
+  // <SplitPane
+  //   left={ <Contacts />}
+  //   right = {<Chat/>}
+  // />,
+  <SignUpDialog 
+    
   />,
   document.getElementById('root')
 );
