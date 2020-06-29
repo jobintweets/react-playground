@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Login from "./components/login.component";
 import SignUp from "./components/signup.component";
-
+import ApiCalls from "./components/apicalls.component";
 function App() {
   return (
     <Router>
@@ -27,13 +27,11 @@ function App() {
       </nav>
 {/* Footer code */}
 
-
-
 {/* code */}
       <div className="auth-wrapper">
         <div className="auth-inner">
           <Switch>
-            <Route exact path='/' component={Login} />
+            <Route exact path='/' component={ApiCalls} />
             <Route path="/sign-in" component={Login} />
             <Route path="/sign-up" component={SignUp} />
           </Switch>
